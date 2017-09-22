@@ -57,14 +57,16 @@ export default class DeviceContainer extends Component {
     return (
       <div className="device-container">
         <div className="device-container-top">
-          <RaisedButton
-            onClick={this._addDevice.bind(this)}
-            label="new device"
-            labelPosition="before"
-            icon={<PlusIcon />}
-            style = {{margin: 12}}
-            secondary = {true}
-          />
+        {
+          // <RaisedButton
+          //   onClick={this._addDevice.bind(this)}
+          //   label="new device"
+          //   labelPosition="before"
+          //   icon={<PlusIcon />}
+          //   style = {{margin: 12}}
+          //   secondary = {true}
+          // />
+        }
         </div>
         <div className="devices-container">
           {devices}

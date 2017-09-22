@@ -2,9 +2,9 @@
   text-align: center;
   /*height: 100%*/
 }
+
 body{
   /*overflow: hidden;*/
-
 }
 
 .header {
@@ -33,6 +33,7 @@ body{
   width: 50%;
   height: 100%;
   text-align: left;
+  display: flex;
 }
 
 .close {
