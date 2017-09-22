@@ -9,7 +9,7 @@ body{
 
 .header {
   /*-webkit-user-select:*/
-  -webkit-app-region: drag;
+  /*-webkit-app-region: drag;*/
   /*position: fixed;*/
   width: 100%;
   position: fixed;
@@ -17,6 +17,22 @@ body{
   /*z-index: 2;*/
   /*display: block;*/
   /*margin-bottom: 20%;*/
+  background: #393838;
+  display: flex;
+  color: white;
+}
+
+.currentInterface {
+  width: 50%;
+  height: 100%;
+  /*align-items: flex-start;*/
+  text-align: left;
+}
+
+.selectInterface {
+  width: 50%;
+  height: 100%;
+  text-align: left;
 }
 
 .close {

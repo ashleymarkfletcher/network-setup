@@ -17,6 +17,16 @@ const startUrl = process.env.ELECTRON_START_URL || url.format({
   slashes: true
 })
 
+// global to store the current network interface
+function getCurrentInterface() {
+  return new Promise(function(resolve, reject) {
+    network.get_active_interface(function(err, obj) {
+      if (err) reject(err)
+      else resolve(obj)
+    })
+  })
+}
+
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
@@ -24,7 +34,7 @@ let mainWindow
 function createWindow() {
   // Create the browser window.
   mainWindow = new BrowserWindow({
-    frame: false,
+    // frame: false,
     width: 800,
     height: 600
   })
@@ -79,7 +89,16 @@ ipcMain.on('get-interfaces', (event, arg) => {
     event.sender.send('interfaces', list);
   })
 })
-//
+
+ipcMain.on('get-active-interface', (event) => {
+  // get network interfaces
+  getCurrentInterface()
+  .then((activeInterface) => {
+    event.sender.send('active-interface', activeInterface);
+  }).catch((err) => {console.log('error getting interface: ', err);})
+
+})
+
 // // Listen for sync message from renderer process
 // ipcMain.on('sync', (event, arg) => {
 //     // Print 3

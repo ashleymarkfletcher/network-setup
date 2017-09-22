@@ -18,18 +18,33 @@ const main = remote.require("./main.js")
 // Needed for onTouchTap
 // http://stackoverflow.com/a/34015469/988941
 injectTapEventPlugin();
-ipcRenderer.send('get-interfaces', 1);
-ipcRenderer.on('interfaces', (event, arg) => {
-  // Print 5
-  console.log('interfaces!', arg);
-  // Invoke method directly on main process
-  // main.pong(6);
-})
 
 class App extends Component {
 
-  componentDidMount(){
+  constructor() {
+    super()
 
+    this.state = {
+      activeInterface: null,
+      interfaces: []
+    }
+  }
+
+  componentDidMount(){
+    // initial requests for interfaces
+    ipcRenderer.send('get-interfaces');
+    ipcRenderer.send('get-active-interface');
+
+    // listeners for returned values from above
+    ipcRenderer.on('interfaces', (event, interfaces) => {
+      console.log('interfaces!', interfaces);
+      this.setState({interfaces: interfaces})
+    })
+
+    ipcRenderer.on('active-interface', (event, activeInterface) => {
+      console.log('active interface!', activeInterface);
+      this.setState({activeInterface: activeInterface})
+    })
   }
 
   _close(){
@@ -47,13 +62,21 @@ class App extends Component {
   render() {
     console.log('main', main)
     console.log('render', ipcRenderer)
+    console.log('state', this.state);
     // main.log()
 
     // main.configureDevice('yep')
     return (
       <MuiThemeProvider>
         <div className="App">
-          <Header close={this._close}/>
+
+          {this.state.activeInterface && 
+            <Header
+            close={this._close}
+            activeInterface={this.state.activeInterface}
+            interfaces={this.state.interfaces}
+            />
+          }
 
           <DeviceContainer
             configureDevice={this._configureDevice.bind(this)}
