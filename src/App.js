@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import Header from './components/header'
-import DeviceContainer from './components/devices/deviceContainer'
+import InterfacesContainer from './components/interfacesContainer'
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
@@ -26,11 +26,12 @@ class App extends Component {
 
     this.state = {
       activeInterface: null,
-      interfaces: []
+      interfaces: [],
+      currentInterface: null
     }
   }
 
-  componentDidMount(){
+  componentDidMount() {
     // initial requests for interfaces
     ipcRenderer.send('get-interfaces');
     ipcRenderer.send('get-active-interface');
@@ -47,16 +48,20 @@ class App extends Component {
     })
   }
 
-  _close(){
+  _close() {
     console.log('close!')
     var window = remote.getCurrentWindow()
     window.close();
   }
 
-  _configureDevice(device){
-    console.log('connn', device)
-    console.log('main', main)
-    main.configureDevice(device)
+  _updateInterface = (int) => {
+    this.setState({ currentInterface: int })
+  }
+
+  _configureInterface = (config) => {
+    console.log('config!', config);
+    config.interface = this.state.currentInterface
+    ipcRenderer.send('configure-interface', config);
   }
 
   render() {
@@ -70,16 +75,18 @@ class App extends Component {
       <MuiThemeProvider>
         <div className="App">
 
-          {this.state.activeInterface && 
+          {this.state.activeInterface &&
             <Header
-            close={this._close}
-            activeInterface={this.state.activeInterface}
-            interfaces={this.state.interfaces}
+              close={this._close}
+              activeInterface={this.state.activeInterface}
+              interfaces={this.state.interfaces}
+              updateInterface={this._updateInterface}
+              currentInterface={this.state.currentInterface}
             />
           }
 
-          <DeviceContainer
-            configureDevice={this._configureDevice.bind(this)}
+          <InterfacesContainer
+            configureInterface={this._configureInterface}
           />
         </div>
       </MuiThemeProvider>

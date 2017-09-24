@@ -8,13 +8,17 @@ export default class Header extends Component {
     super(props)
 
     this.state = {
-      currentInterface: null
+      currentInterface: props.currentInterface
     }
   }
 
-  handleChange = (event, index, value) => this.setState({currentInterface: value});
+  componentWillReceiveProps(nextProps) {
+    this.setState({currentInterface: nextProps.currentInterface})
+  }
 
-  interfaceItems = this.props.interfaces.map((int) => <MenuItem value={int.name} primaryText={int.name} />)
+  handleChange = (event, index, value) => this.props.updateInterface(value)
+
+  interfaceItems = this.props.interfaces.map((int) => <MenuItem value={int.name} primaryText={int.name} key={int.name}/>)
 
   render() {
     return (

@@ -5,6 +5,8 @@ const app = electron.app
 const BrowserWindow = electron.BrowserWindow
 const ipcMain = electron.ipcMain;
 
+const exec = require('child_process').exec;
+
 // gets network details of PC
 var network = require('network');
 
@@ -98,6 +100,23 @@ ipcMain.on('get-active-interface', (event) => {
   }).catch((err) => {console.log('error getting interface: ', err);})
 
 })
+
+ipcMain.on('configure-interface', (event, config) => {
+  // get network interfaces
+  console.log('config', config);
+
+
+  const child = exec(`netsh interface ipv4 set address name="${config.interface}" static ${config.ip} ${config.subnet} ${config.gateway}`,
+  (error, stdout, stderr) => {
+    console.log(`stdout: ${stdout}`);
+    console.log(`stderr: ${stderr}`);
+    if (error !== null) {
+        console.log(`exec error: ${error}`);
+    }
+  });
+})
+
+
 
 // // Listen for sync message from renderer process
 // ipcMain.on('sync', (event, arg) => {

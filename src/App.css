@@ -40,12 +40,16 @@ body{
   -webkit-app-region: no-drag;
 }
 
-.device-container {
+.interface-container {
   display: flex;
   flex-wrap: wrap;
   margin-top: 65px;
   /*overflow: hidden;*/
   /*height: 100%;*/
+}
+
+.interface {
+
 }
 
 .device-container-top {
