@@ -7,6 +7,11 @@ const ipcMain = electron.ipcMain;
 
 const exec = require('child_process').exec;
 
+// stores data in userData folder
+const settings = require('electron-settings');
+// // configs will be stored here
+let configs = {}
+
 // gets network details of PC
 var network = require('network');
 
@@ -47,7 +52,8 @@ function createWindow() {
   // Open the DevTools.
   mainWindow.webContents.openDevTools()
 
-  // mainWindow.webContents.send('ping', 5)
+  configs = settings.get('configs')
+  mainWindow.webContents.send('configs', configs)
 
   // Emitted when the window is closed.
   mainWindow.on('closed', function () {
@@ -92,6 +98,10 @@ ipcMain.on('get-interfaces', (event, arg) => {
   })
 })
 
+ipcMain.on('get-configs', (event) => {
+  event.sender.send('configs', configs);
+})
+
 ipcMain.on('get-active-interface', (event) => {
   // get network interfaces
   getCurrentInterface()
@@ -108,15 +118,36 @@ ipcMain.on('configure-interface', (event, config) => {
 
   const child = exec(`netsh interface ipv4 set address name="${config.interface}" static ${config.ip} ${config.subnet} ${config.gateway}`,
   (error, stdout, stderr) => {
-    console.log(`stdout: ${stdout}`);
-    console.log(`stderr: ${stderr}`);
+    console.log(`stdout: ${stdout}`)
+    console.log(`stderr: ${stderr}`)
     if (error !== null) {
-        console.log(`exec error: ${error}`);
+        console.log(`exec error: ${error}`)
     }
-  });
+  })
 })
 
+ipcMain.on('save-config', (event, configToSave) => {
+  // get network interfaces
+  console.log('saving!', configToSave);
+  const index = configs.findIndex((config) => config.id == configToSave.id)
 
+  if (index != -1) {
+    configs[index] = configToSave
+  } else {
+    configs.push(configToSave)
+  }
+
+  console.log('configs', configs);
+
+  settings.set('configs', configs)
+})
+
+const observer = settings.watch('configs', newValue => {
+  // Do something...
+  console.log('new config saved!', newValue);
+  console.log('configs now', settings.getAll());
+  mainWindow.webContents.send('configs', configs)
+});
 
 // // Listen for sync message from renderer process
 // ipcMain.on('sync', (event, arg) => {

@@ -4,16 +4,36 @@ import RaisedButton from 'material-ui/RaisedButton';
 
 class Interface extends Component {
 
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
 
     this.state = {
-      ip: null,
-      subnet: null,
-      gateway: null,
-      primaryDNS: null,
-      secondaryDNS: null
+      id: props.config.id || null,
+      ip: props.config.ip || null,
+      subnet: props.config.subnet || null,
+      gateway: props.config.gateway || null,
+      primaryDNS: props.config.primaryDNS || null,
+      secondaryDNS: props.config.secondaryDNS || null
     }
+  }
+
+  componentDidMount () {
+    // if the component is new, create an ID
+    if (this.state.id == null) {
+      const id = this.uniqueID()
+      console.log('id!', id);
+      this.setState({ id: id })
+    }
+  }
+
+  uniqueID = () => {
+    return '_' + Math.random().toString(36).substr(2, 9);
+  }
+
+  handleClick = (event) => {
+    event.preventDefault();
+    console.log('The link was clicked.', this.state);
+    this.props.configureInterface(this.state)
   }
 
   handleClick = (event) => {
@@ -31,8 +51,12 @@ class Interface extends Component {
     })
   }
 
+  save = () => {
+    this.props.save(this.state)
+  }
+
   render() {
-    console.log('state', this.state);
+    // console.log('state', this.state);
 
     return (
       <div className="interface">
@@ -40,33 +64,39 @@ class Interface extends Component {
           hintText="192.168.x.x"
           floatingLabelText="IP address"
           name="ip"
+          value={this.state.ip}
           onChange={this.handleChange}
         />
         <TextField
           hintText="255.255.x.x"
           floatingLabelText="Subnet Mask"
           name="subnet"
+          value={this.state.subnet}
           onChange={this.handleChange}
         />
         <TextField
           hintText="192.168.x.x"
           floatingLabelText="Gateway"
           name="gateway"
+          value={this.state.gateway}
           onChange={this.handleChange}
         />
         <TextField
           hintText="192.168.x.x"
           floatingLabelText="Primary DNS"
           name="primaryDNS"
+          value={this.state.primaryDNS}
           onChange={this.handleChange}
         />
         <TextField
           hintText="192.168.x.x"
           floatingLabelText="Secondary DNS"
           name="secondaryDNS"
+          value={this.state.secondaryDNS}
           onChange={this.handleChange}
         />
-        <RaisedButton label="Configure" primary={true} onClick={this.handleClick}/>
+        <RaisedButton label="Save Config" backgroundColor="#a4c639" onClick={this.save}/>
+        <RaisedButton label="Configure" secondary={true} onClick={this.handleClick}/>
       </div>
     )
   }

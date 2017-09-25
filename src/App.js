@@ -14,7 +14,6 @@ const main = remote.require("./main.js")
 // console.log('ffff',remote.require.resolve('./main'))
 // require('electron').remote.require('connection');
 
-
 // Needed for onTouchTap
 // http://stackoverflow.com/a/34015469/988941
 injectTapEventPlugin();
@@ -27,7 +26,8 @@ class App extends Component {
     this.state = {
       activeInterface: null,
       interfaces: [],
-      currentInterface: null
+      currentInterface: null,
+      configs: null
     }
   }
 
@@ -35,16 +35,22 @@ class App extends Component {
     // initial requests for interfaces
     ipcRenderer.send('get-interfaces');
     ipcRenderer.send('get-active-interface');
+    ipcRenderer.send('get-configs');
 
     // listeners for returned values from above
     ipcRenderer.on('interfaces', (event, interfaces) => {
-      console.log('interfaces!', interfaces);
+      // console.log('interfaces!', interfaces);
       this.setState({interfaces: interfaces})
     })
 
     ipcRenderer.on('active-interface', (event, activeInterface) => {
-      console.log('active interface!', activeInterface);
+      // console.log('active interface!', activeInterface);
       this.setState({activeInterface: activeInterface})
+    })
+
+    ipcRenderer.on('configs', (event, configs) => {
+      console.log('configs!', configs);
+      this.setState({configs: configs})
     })
   }
 
@@ -64,17 +70,21 @@ class App extends Component {
     ipcRenderer.send('configure-interface', config);
   }
 
+  _save = (config) => {
+    console.log('saving!', config);
+    ipcRenderer.send('save-config', config);
+  }
+
   render() {
-    console.log('main', main)
-    console.log('render', ipcRenderer)
-    console.log('state', this.state);
+    // console.log('main', main)
+    // console.log('render', ipcRenderer)
+    // console.log('state', this.state)
     // main.log()
 
     // main.configureDevice('yep')
     return (
       <MuiThemeProvider>
         <div className="App">
-
           {this.state.activeInterface &&
             <Header
               close={this._close}
@@ -85,9 +95,13 @@ class App extends Component {
             />
           }
 
-          <InterfacesContainer
-            configureInterface={this._configureInterface}
-          />
+          {this.state.configs &&
+            <InterfacesContainer
+              configureInterface={this._configureInterface}
+              save={this._save}
+              configs={this.state.configs}
+            />
+          }
         </div>
       </MuiThemeProvider>
     )
