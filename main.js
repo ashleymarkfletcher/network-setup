@@ -5,15 +5,20 @@ const app = electron.app
 const BrowserWindow = electron.BrowserWindow
 const ipcMain = electron.ipcMain;
 
-const exec = require('child_process').exec;
+// const exec = require('child_process').exec;
 
 // stores data in userData folder
 const settings = require('electron-settings');
+
 // // configs will be stored here
 let configs = {}
 
 // gets network details of PC
 var network = require('network');
+
+// gives elevated privilages to child processes
+var elevator = require('node-windows').elevate;
+
 
 const path = require('path');
 const url = require('url');
@@ -115,15 +120,25 @@ ipcMain.on('configure-interface', (event, config) => {
   // get network interfaces
   console.log('config', config);
 
+  // elevate.exec(`netsh interface ipv4 set address name="${config.interface}" static ${config.ip} ${config.subnet} ${config.gateway}`,
+  // (error, stdout, stderr) => {
+  //   console.log(`stdout: ${stdout}`)
+  //   console.log(`stderr: ${stderr}`)
+  //   if (error !== null) {
+  //       console.log(`exec error: ${error}`)
+  //   }
+  // })
+  elevator(`netsh interface ipv4 set address name="${config.interface}" static ${config.ip} ${config.subnet} ${config.gateway}` , {
+    waitForTermination: true
+  }, function(error, stdout, stderr) {
+    // if (error) {
+    //   throw error;
+    // }
+    console.log(error);
 
-  const child = exec(`netsh interface ipv4 set address name="${config.interface}" static ${config.ip} ${config.subnet} ${config.gateway}`,
-  (error, stdout, stderr) => {
-    console.log(`stdout: ${stdout}`)
-    console.log(`stderr: ${stderr}`)
-    if (error !== null) {
-        console.log(`exec error: ${error}`)
-    }
-  })
+    console.log(stdout);
+    console.log(stderr);
+  });
 })
 
 ipcMain.on('save-config', (event, configToSave) => {
