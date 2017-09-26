@@ -24,7 +24,7 @@ export default class Header extends Component {
     return (
       <div className='header'>
         <div className='currentInterface'>
-          <p>Current Interface: {this.props.activeInterface.name}</p>
+          <p>Active Interface: {this.props.activeInterface.name}</p>
         </div>
         <div className='selectInterface'>
           <p>Select Interface:</p>

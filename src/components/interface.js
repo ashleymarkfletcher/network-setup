@@ -32,14 +32,12 @@ class Interface extends Component {
 
   handleClick = (event) => {
     event.preventDefault();
-    console.log('The link was clicked.', this.state);
     this.props.configureInterface(this.state)
   }
 
-  handleClick = (event) => {
+  delete = (event) => {
     event.preventDefault();
-    console.log('The link was clicked.', this.state);
-    this.props.configureInterface(this.state)
+    this.props.deleteConfig(this.state)
   }
 
   handleChange = (event) => {
@@ -95,8 +93,9 @@ class Interface extends Component {
           value={this.state.secondaryDNS}
           onChange={this.handleChange}
         />
-        <RaisedButton label="Save Config" backgroundColor="#a4c639" onClick={this.save}/>
-        <RaisedButton label="Configure" secondary={true} onClick={this.handleClick}/>
+        <RaisedButton label="Save Config" backgroundColor="#4CAF50" onClick={this.save}/>
+        <RaisedButton label="Delete" backgroundColor="#F44336" onClick={this.delete}/>
+        <RaisedButton label="Configure" backgroundColor="#03A9F4" onClick={this.handleClick}/>
       </div>
     )
   }

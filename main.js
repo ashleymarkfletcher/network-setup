@@ -16,9 +16,8 @@ let configs = {}
 // gets network details of PC
 var network = require('network');
 
-// gives elevated privilages to child processes
+// gives elevated privileges to child processes
 var elevator = require('node-windows').elevate;
-
 
 const path = require('path');
 const url = require('url');
@@ -29,7 +28,7 @@ const startUrl = process.env.ELECTRON_START_URL || url.format({
   slashes: true
 })
 
-// global to store the current network interface
+// gets the active network interface
 function getCurrentInterface() {
   return new Promise(function(resolve, reject) {
     network.get_active_interface(function(err, obj) {
@@ -128,7 +127,7 @@ ipcMain.on('configure-interface', (event, config) => {
   //       console.log(`exec error: ${error}`)
   //   }
   // })
-  elevator(`netsh interface ipv4 set address name="${config.interface}" static ${config.ip} ${config.subnet} ${config.gateway}` , {
+  elevator(`netsh interface ipv4 set address name="${config.interface}" static ${config.ip} ${config.subnet} ${config.gateway}`, {
     waitForTermination: true
   }, function(error, stdout, stderr) {
     // if (error) {
@@ -138,7 +137,7 @@ ipcMain.on('configure-interface', (event, config) => {
 
     console.log(stdout);
     console.log(stderr);
-  });
+  })
 })
 
 ipcMain.on('save-config', (event, configToSave) => {
@@ -155,6 +154,32 @@ ipcMain.on('save-config', (event, configToSave) => {
   console.log('configs', configs);
 
   settings.set('configs', configs)
+})
+
+ipcMain.on('delete-config', (event, configToDelete) => {
+  // get network interfaces
+  console.log('deleting!', configToDelete);
+  configs = configs.filter((config) => config.id != configToDelete.id)
+
+  console.log('configs', configs);
+
+  settings.set('configs', configs)
+})
+
+ipcMain.on('dhcp', (event, currentInterface) => {
+  // get network interfaces
+  console.log('setting dhcp: ', currentInterface);
+  elevator(`netsh interface ip set address "${currentInterface}" dhcp`, {
+    waitForTermination: true
+  }, function(error, stdout, stderr) {
+    // if (error) {
+    //   throw error;
+    // }
+    console.log(error);
+
+    console.log(stdout);
+    console.log(stderr);
+  });
 })
 
 const observer = settings.watch('configs', newValue => {

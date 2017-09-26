@@ -12,9 +12,13 @@ class InterfacesContainer extends Component {
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.setState({configs: nextProps.configs})
+  }
+
   _mapInterfaces = (configs) => {
     return configs.map((config) => {
-      return <Interface config={config} save={this.props.save} configureInterface={this.props.configureInterface}/>
+      return <Interface config={config} save={this.props.save} deleteConfig={this.props.deleteConfig} configureInterface={this.props.configureInterface} key={config.id}/>
     })
   }
 
@@ -27,7 +31,8 @@ class InterfacesContainer extends Component {
 
     return (
       <div className="interface-container">
-        <RaisedButton label="New Config" primary={true} onClick={this._newConfig}/>
+        <RaisedButton label="New Config" backgroundColor="#FFC107" onClick={this._newConfig}/>
+        <RaisedButton label="DHCP" backgroundColor="#607D8B" onClick={this.props.dhcp}/>
         {configs}
       </div>
     )

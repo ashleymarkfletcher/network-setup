@@ -75,6 +75,16 @@ class App extends Component {
     ipcRenderer.send('save-config', config);
   }
 
+  _deleteConfig = (config) => {
+    console.log('deleting!', config);
+    ipcRenderer.send('delete-config', config);
+  }
+
+  // set current interface to dhcp
+  dhcp = () => {
+    ipcRenderer.send('dhcp', this.state.currentInterface);
+  }
+
   render() {
     // console.log('main', main)
     // console.log('render', ipcRenderer)
@@ -100,6 +110,8 @@ class App extends Component {
               configureInterface={this._configureInterface}
               save={this._save}
               configs={this.state.configs}
+              deleteConfig={this._deleteConfig}
+              dhcp={this.dhcp}
             />
           }
         </div>
