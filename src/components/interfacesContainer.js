@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import Interface from './interface';
 import RaisedButton from 'material-ui/RaisedButton';
+import AddIcon from 'material-ui/svg-icons/content/add-box';
+
+const buttonStyle = {
+  marginLeft: 10
+}
 
 class InterfacesContainer extends Component {
 
@@ -31,8 +36,8 @@ class InterfacesContainer extends Component {
 
     return (
       <div className="interface-container">
-        <RaisedButton label="New Config" backgroundColor="#FFC107" onClick={this._newConfig}/>
-        <RaisedButton label="DHCP" backgroundColor="#607D8B" onClick={this.props.dhcp}/>
+        <RaisedButton style={buttonStyle} icon={<AddIcon color={'white'} />} label="New Config" backgroundColor="#FFC107" onClick={this._newConfig}/>
+        <RaisedButton style={buttonStyle} label="DHCP" backgroundColor="#607D8B" onClick={this.props.dhcp}/>
         {configs}
       </div>
     )

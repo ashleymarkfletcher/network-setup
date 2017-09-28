@@ -1,6 +1,25 @@
 import React, { Component } from 'react';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
+import SaveIcon from 'material-ui/svg-icons/content/save';
+import DeleteIcon from 'material-ui/svg-icons/action/delete';
+import AddIcon from 'material-ui/svg-icons/content/add-box';
+import SendIcon from 'material-ui/svg-icons/content/send';
+import Paper from 'material-ui/Paper';
+
+const paperStyle = {
+  margin: 20,
+  padding: 20
+}
+
+const buttonStyle = {
+  marginLeft: 10
+}
+
+const inputStyle = {
+  marginRight: 10,
+  width: 125
+}
 
 class Interface extends Component {
 
@@ -57,6 +76,7 @@ class Interface extends Component {
     // console.log('state', this.state);
 
     return (
+      <Paper style={paperStyle} zDepth={1}>
       <div className="interface">
         <TextField
           hintText="192.168.x.x"
@@ -64,6 +84,7 @@ class Interface extends Component {
           name="ip"
           value={this.state.ip}
           onChange={this.handleChange}
+          style={inputStyle}
         />
         <TextField
           hintText="255.255.x.x"
@@ -71,6 +92,7 @@ class Interface extends Component {
           name="subnet"
           value={this.state.subnet}
           onChange={this.handleChange}
+          style={inputStyle}
         />
         <TextField
           hintText="192.168.x.x"
@@ -78,6 +100,7 @@ class Interface extends Component {
           name="gateway"
           value={this.state.gateway}
           onChange={this.handleChange}
+          style={inputStyle}
         />
         <TextField
           hintText="192.168.x.x"
@@ -85,6 +108,7 @@ class Interface extends Component {
           name="primaryDNS"
           value={this.state.primaryDNS}
           onChange={this.handleChange}
+          style={inputStyle}
         />
         <TextField
           hintText="192.168.x.x"
@@ -92,11 +116,30 @@ class Interface extends Component {
           name="secondaryDNS"
           value={this.state.secondaryDNS}
           onChange={this.handleChange}
+          style={inputStyle}
         />
-        <RaisedButton label="Save Config" backgroundColor="#4CAF50" onClick={this.save}/>
-        <RaisedButton label="Delete" backgroundColor="#F44336" onClick={this.delete}/>
-        <RaisedButton label="Configure" backgroundColor="#03A9F4" onClick={this.handleClick}/>
+        <RaisedButton
+          icon={<SaveIcon color={'white'} />}
+          backgroundColor="#4CAF50"
+          onClick={this.save}
+          style={buttonStyle}
+        />
+        <RaisedButton
+          icon={<DeleteIcon color={'white'} />}
+          backgroundColor="#F44336"
+          onClick={this.delete}
+          style={buttonStyle}
+        />
+        <RaisedButton
+          label="Configure"
+          backgroundColor="#03A9F4"
+          labelColor={'white'}
+          icon={<SendIcon color={'white'} />}
+          onClick={this.handleClick}
+          style={buttonStyle}
+        />
       </div>
+      </Paper>
     )
   }
 }
