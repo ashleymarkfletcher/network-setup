@@ -2,13 +2,23 @@ import React, { Component } from 'react';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 
+const headerStyle = {
+  paddingLeft: 20,
+  paddingTop: 5,
+  paddingBottom: 5
+}
+
+const dropdownStyle = {
+  // height: 20
+}
+
 export default class Header extends Component {
 
   constructor(props) {
     super(props)
 
     this.state = {
-      currentInterface: props.currentInterface
+      currentInterface: props.currentInterface || props.activeInterface.name
     }
   }
 
@@ -22,13 +32,13 @@ export default class Header extends Component {
 
   render() {
     return (
-      <div className='header'>
+      <div className='header' style={headerStyle}>
         <div className='currentInterface'>
           <p>Active Interface: {this.props.activeInterface.name}</p>
         </div>
         <div className='selectInterface'>
           <p>Select Interface:</p>
-          <DropDownMenu value={this.state.currentInterface} onChange={this.handleChange} labelStyle={{color:'white'}}>
+          <DropDownMenu  style={dropdownStyle} value={this.state.currentInterface} onChange={this.handleChange} labelStyle={{color:'white'}}>
             {this.interfaceItems}
           </DropDownMenu>
         </div>

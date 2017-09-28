@@ -6,6 +6,7 @@ import DeleteIcon from 'material-ui/svg-icons/action/delete';
 import AddIcon from 'material-ui/svg-icons/content/add-box';
 import SendIcon from 'material-ui/svg-icons/content/send';
 import Paper from 'material-ui/Paper';
+const isIp = require('is-ip');
 
 const paperStyle = {
   margin: 20,
@@ -32,7 +33,15 @@ class Interface extends Component {
       subnet: props.config.subnet || null,
       gateway: props.config.gateway || null,
       primaryDNS: props.config.primaryDNS || null,
-      secondaryDNS: props.config.secondaryDNS || null
+      secondaryDNS: props.config.secondaryDNS || null,
+      errors: {
+        id: isIp(props.config.id) ? '' : 'must be a valid IP',
+        ip: isIp(props.config.ip) ? '' : 'must be a valid IP',
+        subnet: isIp(props.config.subnet) ? '' : 'must be a valid IP',
+        gateway: isIp(props.config.gateway) ? '' : 'must be a valid IP',
+        primaryDNS: isIp(props.config.primaryDNS) ? '' : 'must be a valid IP',
+        secondaryDNS: isIp(props.config.secondaryDNS) ? '' : 'must be a valid IP',
+      }
     }
   }
 
@@ -62,9 +71,11 @@ class Interface extends Component {
   handleChange = (event) => {
     const value = event.target.value;
     const name = event.target.name
+    const errorText = isIp(value) ? '' : 'must be a valid IP'
 
     this.setState({
-      [name]: value
+      [name]: value,
+      errors: { ...this.state.errors, [name]: errorText }
     })
   }
 
@@ -84,6 +95,7 @@ class Interface extends Component {
           name="ip"
           value={this.state.ip}
           onChange={this.handleChange}
+          errorText={this.state.errors.ip}
           style={inputStyle}
         />
         <TextField
@@ -92,6 +104,7 @@ class Interface extends Component {
           name="subnet"
           value={this.state.subnet}
           onChange={this.handleChange}
+          errorText={this.state.errors.subnet}
           style={inputStyle}
         />
         <TextField
@@ -100,6 +113,7 @@ class Interface extends Component {
           name="gateway"
           value={this.state.gateway}
           onChange={this.handleChange}
+          errorText={this.state.errors.gateway}
           style={inputStyle}
         />
         <TextField
@@ -108,6 +122,7 @@ class Interface extends Component {
           name="primaryDNS"
           value={this.state.primaryDNS}
           onChange={this.handleChange}
+          errorText={this.state.errors.primaryDNS}
           style={inputStyle}
         />
         <TextField
@@ -116,16 +131,17 @@ class Interface extends Component {
           name="secondaryDNS"
           value={this.state.secondaryDNS}
           onChange={this.handleChange}
+          errorText={this.state.errors.secondaryDNS}
           style={inputStyle}
         />
         <RaisedButton
-          icon={<SaveIcon color={'white'} />}
+          icon={<SaveIcon color={'#FFFFFF'} />}
           backgroundColor="#4CAF50"
           onClick={this.save}
           style={buttonStyle}
         />
         <RaisedButton
-          icon={<DeleteIcon color={'white'} />}
+          icon={<DeleteIcon color={'#FFFFFF'} />}
           backgroundColor="#F44336"
           onClick={this.delete}
           style={buttonStyle}
@@ -133,8 +149,8 @@ class Interface extends Component {
         <RaisedButton
           label="Configure"
           backgroundColor="#03A9F4"
-          labelColor={'white'}
-          icon={<SendIcon color={'white'} />}
+          labelColor={'#FFFFFF'}
+          icon={<SendIcon color={'#FFFFFF'} />}
           onClick={this.handleClick}
           style={buttonStyle}
         />

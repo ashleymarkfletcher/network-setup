@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "electron-settings": "^3.1.2",
+    "is-ip": "^2.0.0",
     "material-ui": "^0.18.3",
     "network": "^0.4.0",
     "node-windows": "^0.1.14",
