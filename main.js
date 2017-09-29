@@ -57,6 +57,14 @@ function createWindow() {
   mainWindow.webContents.openDevTools()
 
   configs = settings.get('configs')
+
+  // settings.set('configs', [])
+
+  if (!configs) {
+    console.log('no configs!');
+    settings.set('configs', [])
+    configs = []
+  }
   mainWindow.webContents.send('configs', configs)
 
   // Emitted when the window is closed.
