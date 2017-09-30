@@ -135,6 +135,8 @@ ipcMain.on('configure-interface', (event, config) => {
   //       console.log(`exec error: ${error}`)
   //   }
   // })
+
+  // set ip details
   elevator(`netsh interface ipv4 set address name="${config.interface}" static ${config.ip} ${config.subnet} ${config.gateway}`, {
     waitForTermination: true
   }, function(error, stdout, stderr) {
@@ -146,6 +148,33 @@ ipcMain.on('configure-interface', (event, config) => {
     console.log(stdout);
     console.log(stderr);
   })
+
+  // set the primaryDNS
+  elevator(`netsh interface ipv4 add dns "${config.interface}" address=${config.primaryDNS} index=1`, {
+    waitForTermination: true
+  }, function(error, stdout, stderr) {
+    // if (error) {
+    //   throw error;
+    // }
+    console.log(error);
+
+    console.log(stdout);
+    console.log(stderr);
+  })
+})
+
+// set the secondaryDNS
+elevator(`netsh interface ipv4 add dns "${config.interface}" address=${config.secondaryDNS} index=2`, {
+  waitForTermination: true
+}, function(error, stdout, stderr) {
+  // if (error) {
+  //   throw error;
+  // }
+  console.log(error);
+
+  console.log(stdout);
+  console.log(stderr);
+})
 })
 
 ipcMain.on('save-config', (event, configToSave) => {
