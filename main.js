@@ -161,20 +161,20 @@ ipcMain.on('configure-interface', (event, config) => {
     console.log(stdout);
     console.log(stderr);
   })
-})
 
-// set the secondaryDNS
-elevator(`netsh interface ipv4 add dns "${config.interface}" address=${config.secondaryDNS} index=2`, {
-  waitForTermination: true
-}, function(error, stdout, stderr) {
-  // if (error) {
-  //   throw error;
-  // }
-  console.log(error);
 
-  console.log(stdout);
-  console.log(stderr);
-})
+  // set the secondaryDNS
+  elevator(`netsh interface ipv4 add dns "${config.interface}" address=${config.secondaryDNS} index=2`, {
+    waitForTermination: true
+  }, function(error, stdout, stderr) {
+    // if (error) {
+    //   throw error;
+    // }
+    console.log(error);
+
+    console.log(stdout);
+    console.log(stderr);
+  })
 })
 
 ipcMain.on('save-config', (event, configToSave) => {
@@ -213,10 +213,20 @@ ipcMain.on('dhcp', (event, currentInterface) => {
     //   throw error;
     // }
     console.log(error);
-
     console.log(stdout);
     console.log(stderr);
-  });
+  })
+
+  elevator(`netsh interface ip set dns "${currentInterface}" dhcp`, {
+    waitForTermination: true
+  }, function(error, stdout, stderr) {
+    // if (error) {
+    //   throw error;
+    // }
+    console.log(error);
+    console.log(stdout);
+    console.log(stderr);
+  })
 })
 
 const observer = settings.watch('configs', newValue => {
