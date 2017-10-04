@@ -23,7 +23,7 @@ const path = require('path');
 const url = require('url');
 // set url to build path of create-react-app
 const startUrl = process.env.ELECTRON_START_URL || url.format({
-  pathname: path.join(__dirname, '/../build/index.html'),
+  pathname: path.join(__dirname, '../build/index.html'),
   protocol: 'file:',
   slashes: true
 })

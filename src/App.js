@@ -9,7 +9,7 @@ import './App.css';
 const electron = window.require("electron")
 const remote = electron.remote
 const ipcRenderer = electron.ipcRenderer
-const main = remote.require("./main.js")
+const main = remote.require("./electron.js")
 // console.log('remote', remote.process);
 // console.log('ffff',remote.require.resolve('./main'))
 // require('electron').remote.require('connection');

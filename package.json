@@ -21,9 +21,17 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
+    "electron-pack": "build --em.main=build/electron.js",
     "electron": "electron .",
     "electron-dev": "set ELECTRON_START_URL=http://localhost:3000 && electron ."
   },
-  "main": "main.js",
+  "build": {
+    "appId": "com.amf.networksetup",
+    "files": [
+      "build/**/*",
+      "node_modules/**/*"
+    ]
+  },
+  "main": "public/electron.js",
   "homepage": "./"
 }
