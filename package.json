@@ -30,7 +30,8 @@
     "files": [
       "build/**/*",
       "node_modules/**/*"
-    ]
+    ],
+    "productName": "network-setup" 
   },
   "main": "public/electron.js",
   "homepage": "./"

@@ -3,24 +3,23 @@ const electron = require('electron');
 const app = electron.app
 // Module to create native browser window.
 const BrowserWindow = electron.BrowserWindow
-const ipcMain = electron.ipcMain;
+const ipcMain = electron.ipcMain
 
 // const exec = require('child_process').exec;
 
-// stores data in userData folder
-const settings = require('electron-settings');
+let settings = {}
 
-// // configs will be stored here
+// configs will be stored here
 let configs = {}
 
 // gets network details of PC
-var network = require('network');
+var network = require('network')
 
 // gives elevated privileges to child processes
-var elevator = require('node-windows').elevate;
+var elevator = require('node-windows').elevate
 
-const path = require('path');
-const url = require('url');
+const path = require('path')
+const url = require('url')
 // set url to build path of create-react-app
 const startUrl = process.env.ELECTRON_START_URL || url.format({
   pathname: path.join(__dirname, '../build/index.html'),
@@ -49,6 +48,16 @@ function createWindow() {
     width: 800,
     height: 600
   })
+
+  // stores data in userData folder
+  settings = require('electron-settings')
+
+  const observer = settings.watch('configs', newValue => {
+    // Do something...
+    console.log('new config saved!', newValue)
+    console.log('configs now', settings.getAll())
+    mainWindow.webContents.send('configs', configs)
+  });
 
   // and load the index.html of the app.
   mainWindow.loadURL(startUrl)
@@ -156,10 +165,10 @@ ipcMain.on('configure-interface', (event, config) => {
     // if (error) {
     //   throw error;
     // }
-    console.log(error);
+    console.log(error)
 
-    console.log(stdout);
-    console.log(stderr);
+    console.log(stdout)
+    console.log(stderr)
   })
 
 
@@ -170,10 +179,10 @@ ipcMain.on('configure-interface', (event, config) => {
     // if (error) {
     //   throw error;
     // }
-    console.log(error);
+    console.log(error)
 
-    console.log(stdout);
-    console.log(stderr);
+    console.log(stdout)
+    console.log(stderr)
   })
 })
 
@@ -188,17 +197,17 @@ ipcMain.on('save-config', (event, configToSave) => {
     configs.push(configToSave)
   }
 
-  console.log('configs', configs);
+  console.log('configs', configs)
 
   settings.set('configs', configs)
 })
 
 ipcMain.on('delete-config', (event, configToDelete) => {
   // get network interfaces
-  console.log('deleting!', configToDelete);
+  console.log('deleting!', configToDelete)
   configs = configs.filter((config) => config.id != configToDelete.id)
 
-  console.log('configs', configs);
+  console.log('configs', configs)
 
   settings.set('configs', configs)
 })
@@ -212,9 +221,9 @@ ipcMain.on('dhcp', (event, currentInterface) => {
     // if (error) {
     //   throw error;
     // }
-    console.log(error);
-    console.log(stdout);
-    console.log(stderr);
+    console.log(error)
+    console.log(stdout)
+    console.log(stderr)
   })
 
   elevator(`netsh interface ip set dns "${currentInterface}" dhcp`, {
@@ -223,18 +232,13 @@ ipcMain.on('dhcp', (event, currentInterface) => {
     // if (error) {
     //   throw error;
     // }
-    console.log(error);
-    console.log(stdout);
-    console.log(stderr);
+    console.log(error)
+    console.log(stdout)
+    console.log(stderr)
   })
 })
 
-const observer = settings.watch('configs', newValue => {
-  // Do something...
-  console.log('new config saved!', newValue);
-  console.log('configs now', settings.getAll());
-  mainWindow.webContents.send('configs', configs)
-});
+
 
 // // Listen for sync message from renderer process
 // ipcMain.on('sync', (event, arg) => {
