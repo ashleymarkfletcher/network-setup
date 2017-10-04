@@ -44,7 +44,7 @@ class Interface extends Component {
       }
     }
   }
-
+  
   componentDidMount () {
     // if the component is new, create an ID
     if (this.state.id == null) {

@@ -27,8 +27,15 @@ class InterfacesContainer extends Component {
     })
   }
 
+  uniqueID = () => {
+    return '_' + Math.random().toString(36).substr(2, 9);
+  }
+
   _newConfig = () => {
-    this.setState({ configs: [ ...this.state.configs, {} ] })
+    // used setstate for temp configs but switched to just saving empty ones
+    // this.setState({ configs: [ ...this.state.configs, {} ] })
+    let id = this.uniqueID()
+    this.props.save({id:id})
   }
 
   render() {

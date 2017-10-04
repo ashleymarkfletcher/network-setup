@@ -45,8 +45,8 @@ function createWindow() {
   // Create the browser window.
   mainWindow = new BrowserWindow({
     // frame: false,
-    width: 800,
-    height: 600
+    width: 1100,
+    height: 700
   })
 
   // stores data in userData folder
@@ -63,7 +63,7 @@ function createWindow() {
   mainWindow.loadURL(startUrl)
 
   // Open the DevTools.
-  mainWindow.webContents.openDevTools()
+  // mainWindow.webContents.openDevTools()
 
   configs = settings.get('configs')
 
