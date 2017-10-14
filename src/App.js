@@ -4,18 +4,13 @@ import Header from './components/header'
 import InterfacesContainer from './components/interfacesContainer'
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-
 import './App.css';
+
 const electron = window.require("electron")
 const remote = electron.remote
 const ipcRenderer = electron.ipcRenderer
 const main = remote.require("./electron.js")
-// console.log('remote', remote.process);
-// console.log('ffff',remote.require.resolve('./main'))
-// require('electron').remote.require('connection');
 
-// Needed for onTouchTap
-// http://stackoverflow.com/a/34015469/988941
 injectTapEventPlugin();
 
 class App extends Component {
@@ -39,23 +34,19 @@ class App extends Component {
 
     // listeners for returned values from above
     ipcRenderer.on('interfaces', (event, interfaces) => {
-      // console.log('interfaces!', interfaces);
       this.setState({interfaces: interfaces})
     })
 
     ipcRenderer.on('active-interface', (event, activeInterface) => {
-      // console.log('active interface!', activeInterface);
       this.setState({activeInterface: activeInterface})
     })
 
     ipcRenderer.on('configs', (event, configs) => {
-      console.log('configs!', configs);
       this.setState({configs: configs})
     })
   }
 
   _close() {
-    console.log('close!')
     var window = remote.getCurrentWindow()
     window.close();
   }
@@ -65,37 +56,27 @@ class App extends Component {
   }
 
   _configureInterface = (config) => {
-    console.log('config!', config);
     config.interface = this.state.currentInterface
     ipcRenderer.send('configure-interface', config);
   }
 
   _save = (config) => {
-    console.log('saving!', config);
     ipcRenderer.send('save-config', config);
   }
 
   _deleteConfig = (config) => {
-    console.log('deleting!', config);
     ipcRenderer.send('delete-config', config);
   }
 
-  // set current interface to dhcp
   dhcp = () => {
     ipcRenderer.send('dhcp', this.state.currentInterface);
   }
 
   render() {
-    // console.log('main', main)
-    // console.log('render', ipcRenderer)
-    // console.log('state', this.state)
-    // main.log()
-
-    // main.configureDevice('yep')
     return (
       <MuiThemeProvider>
         <div className="App">
-          {this.state.activeInterface &&
+          {this.state.activeInterface && this.state.configs &&
             <Header
               close={this._close}
               activeInterface={this.state.activeInterface}
@@ -105,7 +86,7 @@ class App extends Component {
             />
           }
 
-          {this.state.configs &&
+          {this.state.configs && this.state.activeInterface &&
             <InterfacesContainer
               configureInterface={this._configureInterface}
               save={this._save}
