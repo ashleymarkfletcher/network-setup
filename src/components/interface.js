@@ -84,8 +84,6 @@ class Interface extends Component {
   }
 
   render() {
-    console.log('state', this.props);
-
     return (
       <Paper style={paperStyle} zDepth={1}>
       <div className="interface">
