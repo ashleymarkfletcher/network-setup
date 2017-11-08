@@ -54,14 +54,14 @@ test('Header renders', () => {
   const updateInterface = () => {}
 
   const tree = shallow(
-      <Header
-        close={close}
-        activeInterface={mockActiveInterface}
-        interfaces={mockInterfaces}
-        updateInterface={updateInterface}
-        currentInterface={mockCurrentInterface}
-      >
-      </Header>
+    <Header
+      close={close}
+      activeInterface={mockActiveInterface}
+      interfaces={mockInterfaces}
+      updateInterface={updateInterface}
+      currentInterface={mockCurrentInterface}
+    >
+    </Header>
   )
 
   expect(shallowToJson(tree)).toMatchSnapshot();

@@ -23,14 +23,14 @@ test('Interface renders', () => {
   const save = () => {}
 
   const tree = shallow(
-      <Interface
-        config={mockConfig}
-        save={save}
-        deleteConfig={deleteConfig}
-        configureInterface={configureInterface}
-        key={mockConfig.id}
-      >
-      </Interface>
+    <Interface
+      config={mockConfig}
+      save={save}
+      deleteConfig={deleteConfig}
+      configureInterface={configureInterface}
+      key={mockConfig.id}
+    >
+    </Interface>
   )
 
   expect(shallowToJson(tree)).toMatchSnapshot();

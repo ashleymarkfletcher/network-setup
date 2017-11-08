@@ -45,14 +45,14 @@ test('Interface renders', () => {
   const dhcp = () => {}
 
   const tree = shallow(
-      <InterfacesContainer
-        configureInterface={configureInterface}
-        save={save}
-        configs={mockConfigs}
-        deleteConfig={deleteConfig}
-        dhcp={dhcp}
-      >
-      </InterfacesContainer>
+    <InterfacesContainer
+      configureInterface={configureInterface}
+      save={save}
+      configs={mockConfigs}
+      deleteConfig={deleteConfig}
+      dhcp={dhcp}
+    >
+    </InterfacesContainer>
   )
 
   expect(shallowToJson(tree)).toMatchSnapshot();
