@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "codecov": "^3.0.0",
     "electron-ipc-mock": "0.0.3",
     "electron-settings": "^3.1.2",
     "enzyme": "^3.1.1",
@@ -42,11 +43,13 @@
   "main": "public/electron.js",
   "homepage": "./",
   "jest": {
-    "collectCoverageFrom" : [
+    "collectCoverageFrom": [
       "src/**/*.{js,jsx}",
       "!<rootDir>/node_modules/",
       "!<rootDir>/path/to/dir/"
     ],
-    "coverageReporters": ["text"]
+    "coverageReporters": [
+      "text"
+    ]
   }
 }
