@@ -1,0 +1,94 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Interface renders 1`] = `
+<div
+  className="interface-container"
+>
+  <RaisedButton
+    backgroundColor="#FFC107"
+    disabled={false}
+    fullWidth={false}
+    icon={
+      <ContentAddBox
+        color="#555555"
+      />
+    }
+    label="New Config"
+    labelPosition="after"
+    onClick={[Function]}
+    primary={false}
+    secondary={false}
+    style={
+      Object {
+        "marginLeft": 10,
+      }
+    }
+  />
+  <RaisedButton
+    backgroundColor="#607D8B"
+    disabled={false}
+    fullWidth={false}
+    label="DHCP"
+    labelPosition="after"
+    onClick={[Function]}
+    primary={false}
+    secondary={false}
+    style={
+      Object {
+        "marginLeft": 10,
+      }
+    }
+  />
+  <Interface
+    config={
+      Object {
+        "errors": Object {},
+        "gateway": "192.168.1.1",
+        "id": "_8h7ez2224",
+        "ip": "192.168.1.10",
+        "primaryDNS": "8.8.8.8",
+        "secondaryDNS": "8.8.4.4",
+        "subnet": "255.255.255.0",
+      }
+    }
+    configureInterface={[Function]}
+    deleteConfig={[Function]}
+    key="_8h7ez2224"
+    save={[Function]}
+  />
+  <Interface
+    config={
+      Object {
+        "errors": Object {},
+        "gateway": "192.168.21.1",
+        "id": "_8h7ez2244",
+        "ip": "192.168.21.10",
+        "primaryDNS": "8.8.8.8",
+        "secondaryDNS": "8.8.4.4",
+        "subnet": "255.255.255.0",
+      }
+    }
+    configureInterface={[Function]}
+    deleteConfig={[Function]}
+    key="_8h7ez2244"
+    save={[Function]}
+  />
+  <Interface
+    config={
+      Object {
+        "errors": Object {},
+        "gateway": "192.168.40.1",
+        "id": "_8h7ez2232",
+        "ip": "192.168.40.12",
+        "primaryDNS": "8.8.8.8",
+        "secondaryDNS": "8.8.4.4",
+        "subnet": "255.255.255.0",
+      }
+    }
+    configureInterface={[Function]}
+    deleteConfig={[Function]}
+    key="_8h7ez2232"
+    save={[Function]}
+  />
+</div>
+`;
