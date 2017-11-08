@@ -44,7 +44,7 @@ class Interface extends Component {
       }
     }
   }
-  
+
   componentDidMount () {
     // if the component is new, create an ID
     if (this.state.id == null) {
@@ -84,7 +84,7 @@ class Interface extends Component {
   }
 
   render() {
-    // console.log('state', this.state);
+    console.log('state', this.props);
 
     return (
       <Paper style={paperStyle} zDepth={1}>

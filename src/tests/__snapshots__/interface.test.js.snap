@@ -1,0 +1,185 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Interface renders 1`] = `
+<Paper
+  circle={false}
+  rounded={true}
+  style={
+    Object {
+      "margin": 20,
+      "padding": 20,
+    }
+  }
+  transitionEnabled={true}
+  zDepth={1}
+>
+  <div
+    className="interface"
+  >
+    <TextField
+      disabled={false}
+      errorText=""
+      floatingLabelFixed={false}
+      floatingLabelText="IP address"
+      fullWidth={false}
+      hintText="192.168.x.x"
+      multiLine={false}
+      name="ip"
+      onChange={[Function]}
+      rows={1}
+      style={
+        Object {
+          "marginRight": 10,
+          "width": 125,
+        }
+      }
+      type="text"
+      underlineShow={true}
+      value="192.168.1.10"
+    />
+    <TextField
+      disabled={false}
+      errorText=""
+      floatingLabelFixed={false}
+      floatingLabelText="Subnet Mask"
+      fullWidth={false}
+      hintText="255.255.x.x"
+      multiLine={false}
+      name="subnet"
+      onChange={[Function]}
+      rows={1}
+      style={
+        Object {
+          "marginRight": 10,
+          "width": 125,
+        }
+      }
+      type="text"
+      underlineShow={true}
+      value="255.255.255.0"
+    />
+    <TextField
+      disabled={false}
+      errorText=""
+      floatingLabelFixed={false}
+      floatingLabelText="Gateway"
+      fullWidth={false}
+      hintText="192.168.x.x"
+      multiLine={false}
+      name="gateway"
+      onChange={[Function]}
+      rows={1}
+      style={
+        Object {
+          "marginRight": 10,
+          "width": 125,
+        }
+      }
+      type="text"
+      underlineShow={true}
+      value="192.168.1.1"
+    />
+    <TextField
+      disabled={false}
+      errorText=""
+      floatingLabelFixed={false}
+      floatingLabelText="Primary DNS"
+      fullWidth={false}
+      hintText="192.168.x.x"
+      multiLine={false}
+      name="primaryDNS"
+      onChange={[Function]}
+      rows={1}
+      style={
+        Object {
+          "marginRight": 10,
+          "width": 125,
+        }
+      }
+      type="text"
+      underlineShow={true}
+      value="8.8.8.8"
+    />
+    <TextField
+      disabled={false}
+      errorText=""
+      floatingLabelFixed={false}
+      floatingLabelText="Secondary DNS"
+      fullWidth={false}
+      hintText="192.168.x.x"
+      multiLine={false}
+      name="secondaryDNS"
+      onChange={[Function]}
+      rows={1}
+      style={
+        Object {
+          "marginRight": 10,
+          "width": 125,
+        }
+      }
+      type="text"
+      underlineShow={true}
+      value="8.8.4.4"
+    />
+    <RaisedButton
+      backgroundColor="#4CAF50"
+      disabled={false}
+      fullWidth={false}
+      icon={
+        <ContentSave
+          color="#FFFFFF"
+        />
+      }
+      labelPosition="after"
+      onClick={[Function]}
+      primary={false}
+      secondary={false}
+      style={
+        Object {
+          "marginLeft": 10,
+        }
+      }
+    />
+    <RaisedButton
+      backgroundColor="#F44336"
+      disabled={false}
+      fullWidth={false}
+      icon={
+        <ActionDelete
+          color="#FFFFFF"
+        />
+      }
+      labelPosition="after"
+      onClick={[Function]}
+      primary={false}
+      secondary={false}
+      style={
+        Object {
+          "marginLeft": 10,
+        }
+      }
+    />
+    <RaisedButton
+      backgroundColor="#03A9F4"
+      disabled={false}
+      fullWidth={false}
+      icon={
+        <ContentSend
+          color="#FFFFFF"
+        />
+      }
+      label="Configure"
+      labelColor="#FFFFFF"
+      labelPosition="after"
+      onClick={[Function]}
+      primary={false}
+      secondary={false}
+      style={
+        Object {
+          "marginLeft": 10,
+        }
+      }
+    />
+  </div>
+</Paper>
+`;
