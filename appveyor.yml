@@ -14,6 +14,10 @@ test_script:
   - node --version
   - npm --version
   # run tests
-  - npm test -- --coverage && codecov
+  - npm test -- --coverage
+
+after_test:
+  - codecov
+
 # Don't actually build.
 build: off
