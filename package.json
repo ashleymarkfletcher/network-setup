@@ -3,14 +3,19 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "electron-ipc-mock": "0.0.3",
     "electron-settings": "^3.1.2",
+    "enzyme": "^3.1.1",
+    "enzyme-adapter-react-16": "^1.0.4",
+    "enzyme-to-json": "^3.2.2",
     "is-ip": "^2.0.0",
     "material-ui": "^0.18.3",
     "network": "^0.4.0",
     "node-windows": "^0.1.14",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
-    "react-tap-event-plugin": "^2.0.1"
+    "react-tap-event-plugin": "^2.0.1",
+    "react-test-renderer": "^15.6.2"
   },
   "devDependencies": {
     "electron": "^1.6.11",

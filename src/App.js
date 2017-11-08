@@ -9,7 +9,7 @@ import './App.css';
 const electron = window.require("electron")
 const remote = electron.remote
 const ipcRenderer = electron.ipcRenderer
-const main = remote.require("./electron.js")
+// const main = remote.require("./electron.js")
 
 injectTapEventPlugin();
 
