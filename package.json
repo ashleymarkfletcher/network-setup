@@ -40,5 +40,13 @@
     "productName": "network-setup"
   },
   "main": "public/electron.js",
-  "homepage": "./"
+  "homepage": "./",
+  "jest": {
+    "collectCoverageFrom" : [
+      "src/**/*.{js,jsx}",
+      "!<rootDir>/node_modules/",
+      "!<rootDir>/path/to/dir/"
+    ],
+    "coverageReporters": ["text"]
+  }
 }
