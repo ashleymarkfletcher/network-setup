@@ -35,3 +35,34 @@ test('Interface renders', () => {
 
   expect(shallowToJson(tree)).toMatchSnapshot();
 })
+
+test('Interface creates new uid', () => {
+
+  const mockConfig = {
+    errors: {},
+    gateway: "192.168.1.1",
+    id: null,
+    ip: "192.168.1.10",
+    primaryDNS: "8.8.8.8",
+    secondaryDNS: "8.8.4.4",
+    subnet: "255.255.255.0"
+  }
+
+  const configureInterface = () => {}
+
+  const deleteConfig = () => {}
+
+  const save = () => {}
+
+  const tree = shallow(
+    <Interface
+      config={mockConfig}
+      save={save}
+      deleteConfig={deleteConfig}
+      configureInterface={configureInterface}
+      key={mockConfig.id}
+    >
+    </Interface>
+  )
+  expect(tree.state().id).not.toBe(null);
+})
