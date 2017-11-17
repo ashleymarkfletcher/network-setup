@@ -36,6 +36,7 @@ exports[`Header renders 1`] = `
       autoWidth={true}
       disabled={false}
       iconButton={<NavigationArrowDropDown />}
+      id="activeDropdown"
       labelStyle={
         Object {
           "color": "white",

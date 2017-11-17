@@ -13,6 +13,7 @@ exports[`Interface renders 1`] = `
         color="#555555"
       />
     }
+    id="newConfig"
     label="New Config"
     labelPosition="after"
     onClick={[Function]}

@@ -35,7 +35,6 @@ class Interface extends Component {
       primaryDNS: props.config.primaryDNS || null,
       secondaryDNS: props.config.secondaryDNS || null,
       errors: {
-        id: isIp(props.config.id) ? '' : 'must be a valid IP',
         ip: isIp(props.config.ip) ? '' : 'must be a valid IP',
         subnet: isIp(props.config.subnet) ? '' : 'must be a valid IP',
         gateway: isIp(props.config.gateway) ? '' : 'must be a valid IP',
@@ -49,7 +48,6 @@ class Interface extends Component {
     // if the component is new, create an ID
     if (this.state.id == null) {
       const id = this.uniqueID()
-      console.log('id!', id);
       this.setState({ id: id })
     }
   }
@@ -134,12 +132,14 @@ class Interface extends Component {
         />
         <RaisedButton
           icon={<SaveIcon color={'#FFFFFF'} />}
+          id="save"
           backgroundColor="#4CAF50"
           onClick={this.save}
           style={buttonStyle}
         />
         <RaisedButton
           icon={<DeleteIcon color={'#FFFFFF'} />}
+          id="delete"
           backgroundColor="#F44336"
           onClick={this.delete}
           style={buttonStyle}

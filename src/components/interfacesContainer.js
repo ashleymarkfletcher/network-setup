@@ -43,7 +43,7 @@ class InterfacesContainer extends Component {
 
     return (
       <div className="interface-container">
-        <RaisedButton style={buttonStyle} icon={<AddIcon color={'#555555'} />} label="New Config" backgroundColor="#FFC107" onClick={this._newConfig}/>
+        <RaisedButton id="newConfig" style={buttonStyle} icon={<AddIcon color={'#555555'} />} label="New Config" backgroundColor="#FFC107" onClick={this._newConfig}/>
         <RaisedButton style={buttonStyle} label="DHCP" backgroundColor="#607D8B" onClick={this.props.dhcp}/>
         {configs}
       </div>

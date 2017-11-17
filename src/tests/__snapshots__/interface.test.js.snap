@@ -130,6 +130,7 @@ exports[`Interface renders 1`] = `
           color="#FFFFFF"
         />
       }
+      id="save"
       labelPosition="after"
       onClick={[Function]}
       primary={false}
@@ -149,6 +150,7 @@ exports[`Interface renders 1`] = `
           color="#FFFFFF"
         />
       }
+      id="delete"
       labelPosition="after"
       onClick={[Function]}
       primary={false}

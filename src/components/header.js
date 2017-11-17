@@ -38,7 +38,7 @@ export default class Header extends Component {
         </div>
         <div className='selectInterface'>
           <p>Select Interface:</p>
-          <DropDownMenu  style={dropdownStyle} value={this.state.currentInterface} onChange={this.handleChange} labelStyle={{color:'white'}}>
+          <DropDownMenu id="activeDropdown" style={dropdownStyle} value={this.state.currentInterface} onChange={this.handleChange} labelStyle={{color:'white'}}>
             {this.interfaceItems}
           </DropDownMenu>
         </div>

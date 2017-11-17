@@ -4,23 +4,27 @@ import Interface from '../components/interface';
 import { shallow } from 'enzyme';
 import { shallowToJson } from 'enzyme-to-json';
 
+const configureInterface =  jest.fn()
+const deleteConfig = jest.fn()
+const save = jest.fn()
+
+let mockConfig = {
+  errors: {
+    "gateway": "",
+     "ip": "",
+     "primaryDNS": "",
+     "secondaryDNS": "",
+     "subnet": ""
+   },
+  gateway: "192.168.1.1",
+  id: "_8h7ez2224",
+  ip: "192.168.1.10",
+  primaryDNS: "8.8.8.8",
+  secondaryDNS: "8.8.4.4",
+  subnet: "255.255.255.0"
+}
+
 test('Interface renders', () => {
-
-  const mockConfig = {
-    errors: {},
-    gateway: "192.168.1.1",
-    id: "_8h7ez2224",
-    ip: "192.168.1.10",
-    primaryDNS: "8.8.8.8",
-    secondaryDNS: "8.8.4.4",
-    subnet: "255.255.255.0"
-  }
-
-  const configureInterface = () => {}
-
-  const deleteConfig = () => {}
-
-  const save = () => {}
 
   const tree = shallow(
     <Interface
@@ -38,21 +42,24 @@ test('Interface renders', () => {
 
 test('Interface creates new uid', () => {
 
-  const mockConfig = {
-    errors: {},
-    gateway: "192.168.1.1",
-    id: null,
-    ip: "192.168.1.10",
-    primaryDNS: "8.8.8.8",
-    secondaryDNS: "8.8.4.4",
-    subnet: "255.255.255.0"
-  }
+  let nullIdConfig = { ...mockConfig }
+  nullIdConfig.id = null
 
-  const configureInterface = () => {}
+  const tree = shallow(
+    <Interface
+      config={nullIdConfig}
+      save={save}
+      deleteConfig={deleteConfig}
+      configureInterface={configureInterface}
+      key={nullIdConfig.id}
+    >
+    </Interface>
+  )
 
-  const deleteConfig = () => {}
+  expect(tree.state().id).not.toBe(null);
+})
 
-  const save = () => {}
+test('Interface handles click and calls configure with config', () => {
 
   const tree = shallow(
     <Interface
@@ -64,5 +71,61 @@ test('Interface creates new uid', () => {
     >
     </Interface>
   )
-  expect(tree.state().id).not.toBe(null);
+
+  tree.find('[label="Configure"]').simulate('click', { preventDefault: jest.fn()});
+  expect(tree.instance().props.configureInterface).toHaveBeenCalledWith(mockConfig)
+})
+
+test('Interface handles click delete and sends back the config', () => {
+
+  const tree = shallow(
+    <Interface
+      config={mockConfig}
+      save={save}
+      deleteConfig={deleteConfig}
+      configureInterface={configureInterface}
+      key={mockConfig.id}
+    >
+    </Interface>
+  )
+
+  tree.find('[id="delete"]').simulate('click', { preventDefault: jest.fn()});
+  expect(tree.instance().props.deleteConfig).toHaveBeenCalledWith(mockConfig)
+})
+
+test('Interface handles change and updates the state with the new config', () => {
+
+  let returnConfig = { ...mockConfig }
+  returnConfig.ip = "1.1.1.1"
+
+  const tree = shallow(
+    <Interface
+      config={mockConfig}
+      save={save}
+      deleteConfig={deleteConfig}
+      configureInterface={configureInterface}
+      key={mockConfig.id}
+    >
+    </Interface>
+  )
+
+  tree.find('[name="ip"]').simulate('change', {target: {value: '1.1.1.1', name: 'ip'} });
+  expect(tree.instance().state).toEqual(returnConfig)
+})
+
+test('Interface handles click save and calls save prop with config', () => {
+
+  const tree = shallow(
+    <Interface
+      config={mockConfig}
+      save={save}
+      deleteConfig={deleteConfig}
+      configureInterface={configureInterface}
+      key={mockConfig.id}
+    >
+    </Interface>
+  )
+
+  tree.find('[id="save"]').simulate('click', { preventDefault: jest.fn()});
+  expect(tree.instance().props.save).toHaveBeenCalledWith(mockConfig)
 })
