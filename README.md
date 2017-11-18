@@ -5,6 +5,8 @@ An Electron/React windows app to help switch between multiple network configurat
 [![Build status](https://ci.appveyor.com/api/projects/status/jcxfv93wl7b3bynj?svg=true)](https://ci.appveyor.com/project/ashleymarkfletcher/network-setup)
 [![codecov](https://codecov.io/gh/ashleymarkfletcher/network-setup/branch/master/graph/badge.svg)](https://codecov.io/gh/ashleymarkfletcher/network-setup)
 
+![](Capture.PNG?raw=true)
+
 ## To Run - Development
 
 1. Clone or download this repository
