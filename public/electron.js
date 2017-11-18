@@ -29,7 +29,8 @@ function createWindow() {
   mainWindow = new BrowserWindow({
     // frame: false,
     width: 1100,
-    height: 700
+    height: 700,
+    title: 'network setup'
   })
 
   // stores data in userData folder
